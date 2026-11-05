@@ -27,4 +27,4 @@ def create_item(item:Item):
     # 3. `model_dump()` transforme cet objet Pydantic en dictionnaire Python classique :
     db[item.name]=item.model_dump()
 
-    return {"message":f"created item {item.name} with price {item.price}"}
+    return {"message":f"created item {item.name} with price {item.price}", "status_code": 201}
