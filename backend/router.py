@@ -1,5 +1,6 @@
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
+from pydantic import ValidationError
 import joblib
 import uvicorn
 
@@ -16,6 +17,11 @@ async def read_item(item_id: int):
 class Item(BaseModel):
     name: str
     price: float
+
+class User (BaseModel):
+    username: str
+    email: str
+    age: int
 
 @app.post("/items", status_code=201)
 def create_item(item: Item):
@@ -46,6 +52,15 @@ def predict(features: PenguinFeatures):
     prediction = model.predict(data)
     return {"prediction": prediction[0]}
 
+
+@app.post("/users", response_model=User)
+async def create_user(user:User):
+    return user
+try:
+    invalid_user=User(username="john_doe", email="john@example.com", age=18)
+    print("invalid_user:", invalid_user)
+except ValidationError as e:
+    print(f"Validation error: {e}")
 
 if __name__ == "__main__":
     uvicorn.run(app, host="localhost", port=8002)
