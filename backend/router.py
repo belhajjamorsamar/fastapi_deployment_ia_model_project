@@ -20,7 +20,9 @@ class Item(BaseModel):
     price: float
 
 @app.post("/items", status_code=201)
+# 1. FastAPI reçoit le JSON envoyé dans le corps de la requête HTTP (Request Body).
 def create_item(item:Item):
+    # 3. `model_dump()` transforme cet objet Pydantic en dictionnaire Python classique :
     db[item.name]=item.model_dump()
 
     return {"message":f"created item {item.name} with price {item.price}"}
