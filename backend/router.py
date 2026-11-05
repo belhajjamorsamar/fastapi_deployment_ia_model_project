@@ -12,6 +12,8 @@ db={}
 
 @app.get('/item/{item_id}')#@app.get definit l'endpoint , {item_id} est une parametres de chemin qui sera passé à la fonction read_item
 async def read_item(item_id: int): 
+    if item_id ==4242 : # an invalid ordeer number
+        raise HTTPException(status_code=404, detail='Item not found')
     return {"item_id":item_id}
 
 
