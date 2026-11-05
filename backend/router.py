@@ -62,5 +62,17 @@ try:
 except ValidationError as e:
     print(f"Validation error: {e}")
 
+
+@app.post("/analyze_text")
+def analyze_text(comment:CommentText):
+    forbiden=["spam", "hate","free","fake","sign up"]
+    text_lower=comment.lower()
+    issues = [word for word in forbiden
+              if word in text_lower]
+    return {
+        "issues" : issues,
+        "needs_moderation" : "len(issues)"
+    }
+
 if __name__ == "__main__":
     uvicorn.run(app, host="localhost", port=8002)
