@@ -1,2 +1,4 @@
-fastapi[standard]
-uvicorn
+fastapi[standard] # framwork pour crrr des pi en python
+uvicorn #serveur ASGI (asynchronous server getway interfce) rapide pour excuter des applications web python
+joblib # pour charger des modles préentrainé 
+scikit-learn==1.4.2
