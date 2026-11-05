@@ -61,7 +61,9 @@ try:
     print("invalid_user:", invalid_user)
 except ValidationError as e:
     print(f"Validation error: {e}")
-
+    
+class CommentText(BaseModel):
+    text: str
 
 @app.post("/analyze_text")
 def analyze_text(comment:CommentText):
